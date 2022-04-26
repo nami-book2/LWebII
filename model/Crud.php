@@ -32,7 +32,8 @@ class Crud
           return false;
       }else{
           $conexao = Transaction::get();
-          $sql = "INSERT INTO $this ->$tabela($campos) VALUES ($valores)";
+          $sql = "INSERT INTO $this->tabela ($campos) VALUES ($valores)";
+          $resultado = $conexao->query($sql);
           if ($resultado->rowCount() > 0) {
             echo "Inserido com sucesso!";
             return true;

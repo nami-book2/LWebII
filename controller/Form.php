@@ -19,10 +19,10 @@ class Form
         $conexao = Transaction::get();
         $documentos = new Crud('documentos');
         $nome = $conexao->quote($_POST['nome']);
-        $descricao = $conexao->quote($_POST['descrição']);
+        $descricao = $conexao->quote($_POST['descricao']);
         $datatime = $conexao->quote($_POST['datatime']);
-        $resultado = $computador->insert("nome,configuracao,valor", "$marca,$descricao,$datatime");
-      } catch (Exception $e) {
+        $resultado = $documentos->insert("nome,descricao,datahora", "$nome,$descricao,$datatime");
+      }catch (Exception $e) {
         echo $e->getMessage();
       }
     }
