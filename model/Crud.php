@@ -27,20 +27,56 @@ class Crud
   }
   public function insert($campos = NULL, $valores = NULL)
   {
-      if (!$campos && !$valores){
-          echo "Campos e valores não informados";
-          return false;
-      }else{
-          $conexao = Transaction::get();
-          $sql = "INSERT INTO $this->tabela ($campos) VALUES ($valores)";
-          $resultado = $conexao->query($sql);
-          if ($resultado->rowCount() > 0) {
-            echo "Inserido com sucesso!";
-            return true;
-          } else {
-            echo "Erro ao inserir!";
-            return false;
-          }
+    if (!$campos && !$valores) {
+      echo "Campos e valores não informados!";
+      return false;
+    } else {
+      $conexao = Transaction::get();
+      $sql = "INSERT INTO $this->tabela ($campos) VALUES ($valores)";
+      $resultado = $conexao->query($sql);
+      if ($resultado->rowCount() > 0) {
+        echo "Inserido com sucesso!";
+        return true;
+      } else {
+        echo "Erro ao inserir!";
+        return false;
+      }
     }
-  } 
+  }
+  public function update($valores = NULL, $condicao = NULL)
+  {
+    if (!$valores || !$condicao) {
+      echo "Valores ou condição não informados!";
+      return false;
+    } else {
+      $conexao = Transaction::get();
+      $sql = "UPDATE $this->tabela SET $valores WHERE $condicao";
+      $resultado = $conexao->query($sql);
+      if ($resultado->rowCount() > 0) {
+        echo "Atualizado com sucesso!";
+        return true;
+      } else {
+        echo "Erro ao atualizar!";
+        return false;
+      }
+    }
+  }
+  public function delete($condicao = NULL)
+  {
+    if (!$condicao) {
+      echo "Condição não informada!";
+      return false;
+    } else {
+      $conexao = Transaction::get();
+      $sql = "DELETE FROM $this->tabela WHERE $condicao";
+      $resultado = $conexao->query($sql);
+      if ($resultado->rowCount() > 0) {
+        echo "Excluído com sucesso!";
+        return true;
+      } else {
+        echo "Erro ao excluir!";
+        return false;
+      }
+    }
+  }
 }

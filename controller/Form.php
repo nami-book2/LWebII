@@ -10,6 +10,10 @@ class Form
   public function controller()
   {
     $form = new Template("view/form.html");
+    $form->set("id", "");
+    $form->set("name", "");
+    $form->set("descricao", "");
+    $form->set("datatime", "");
     $this->message = $form->saida();
   }
   public function salvar()
@@ -21,12 +25,36 @@ class Form
         $nome = $conexao->quote($_POST['nome']);
         $descricao = $conexao->quote($_POST['descricao']);
         $datatime = $conexao->quote($_POST['datatime']);
-        $resultado = $documentos->insert("nome,descricao,datahora", "$nome,$descricao,$datatime");
+        $if (empty($_POST["id"])) {
+          $documentos->insert("nome,descricao,datahora","$nome,$descricao,$datatime");
+        } else {
+          $id = $conexao->quote($_POST['id']);
+          $documentos->update("nome=$nome,descricao=$descricao,datahora=$datatime", "id=$id");
+        }
       }catch (Exception $e) {
         echo $e->getMessage();
       }
     }
   }
+  public function editar()
+  {
+    if (isset($_GET['id'])) {
+      try {
+        $conexao = Transaction::get();
+        $id = $conexao->quote($_GET['id']);
+        $documentos = new Crud('documentos');
+        $resultado = $documentos->select("*", "id=$id");
+        $form = new Template("view/form.html");
+        foreach ($resultado[0] as $cod => $datatime) {
+          $form->set($cod, $datatime);
+        }
+        $this->message = $form->saida();
+      } catch (Exception $e) {
+        echo $e->getMessage();
+      }
+    }
+  }
+
   public function getMessage()
   {
     return $this->message;

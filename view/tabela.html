@@ -13,12 +13,22 @@
       <tr>
         <td>{nome}</td>
         <td>{descricao}</td>
-        <td>{datatime}</td>
+        <td>{datahora}</td>
         <td>
-          <button type="button">Editar</button>
+          <button 
+          type="button"
+          onclick="location.href='?class=Form&method=editar&id={id}'"
+          
+          >Editar</button>
         </td>
         <td>
-          <button type="button">Remover</button>
+          <button
+            type="button"
+            onclick="if(confirm('Deseja realmente remover?'))
+              location.href='?class=Tabela&method=remover&id={id}'"
+          >
+            Remover
+          </button>
         </td>
       </tr>
       {/linha}
