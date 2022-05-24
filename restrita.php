@@ -18,22 +18,25 @@ function classLoader($class)
   }
 }
 spl_autoload_register('classLoader');
-
 Session::startSession();
-Session::freeSession();
+if(!Session::getValue("id")){
+    header("Location:" . Aplicacao::$path . "/");
+}
 
 // Front Controller
 class Aplicacao
 {
-  private static $app = "/Nicole";
+  private static $path = "/Nicole";
+  static private $uri = "/Nicole/restrita.php";
   public static function run()
   {
     $layout = new Template('view/layout.html');
     $layout->set("uri", self::$app);
+    $layout->set("path", self::$path);
     if (isset($_GET["class"])) {
       $class = $_GET["class"];
     } else {
-      $class = "Login";
+      $class = "Inicio";
     }
     if (isset($_GET["method"])) {
       $method = $_GET["method"];
@@ -50,9 +53,9 @@ class Aplicacao
       
       $layout->set('conteudo', $pagina->getMessage());
     }
+    $layout->set("nome", 
+    Session::getValue("nome"));
     echo $layout->saida();
   }
 }
 Aplicacao::run();
-
-//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 token git
