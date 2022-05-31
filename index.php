@@ -17,7 +17,7 @@ function classLoader($class)
     }
   }
 }
-spl_autoload_register('classLoader');
+spl_autoload_register("classLoader");
 
 Session::startSession();
 Session::freeSession();
@@ -25,10 +25,11 @@ Session::freeSession();
 // Front Controller
 class Aplicacao
 {
-  private static $app = "/Nicole";
+  private static $app = "/NicoleWeb";
   public static function run()
   {
-    $layout = new Template('view/layout.html');
+    $layout = new 
+Template('public/view/layout.html');
     $layout->set("uri", self::$app);
     if (isset($_GET["class"])) {
       $class = $_GET["class"];

@@ -31,24 +31,9 @@ class Cadastrar
     $this->message = $e->getMessage();
     $this->error = true;
     }
-  
-  public function remover()
-  {
-    if (isset($_GET["id"])) {
-      try {
-        $conexao = Transaction::get();
-        $id = $conexao->quote($_GET["id"]);
-        $crud = new Crud("crud");
-        $crud->delete("id=$id");
-        $this->message = $crud->getMessage();
-        $this->error = $crud->getError();
-      } catch (Exception $e) {
-        $this->message = $e->getMessage();
-        $this->error = true;
-      }
-    } else {
-      $this->message = "Faltando parâmetro!";
-      $this->error = true;
+  } else {
+    $this->message = "Preencha todos os campos! ";
+    $this->error = TRUE;
     }
   }
   public function getMessage()
@@ -67,8 +52,13 @@ class Cadastrar
       return $msg->saida();
     }
   }
+  public function getError()
+  {
+  return $this->error;
+  }
   public function __destruct()
   {
+
     Transaction::close();
   }
 }
