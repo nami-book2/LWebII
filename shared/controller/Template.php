@@ -50,6 +50,7 @@ class Template
           }
         }
       }
+      
       return $saida;
     }
   }

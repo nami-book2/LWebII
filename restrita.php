@@ -26,8 +26,8 @@ if(!Session::getValue("id")){
 // Front Controller
 class Aplicacao
 {
-  private static $path = "/Nicole";
-  static private $uri = "/Nicole/restrita.php";
+  private static $path = "/NicoleWeb";
+  static private $uri = "/NicoleWeb/restrita.php";
   public static function run()
   {
     $layout = new Template('view/layout.html');

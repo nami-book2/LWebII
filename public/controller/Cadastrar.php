@@ -32,7 +32,7 @@ class Cadastrar
     $this->error = true;
     }
   } else {
-    $this->message = "Preencha todos os campos! ";
+    $this->message = "Preencha Todos os Campos! ";
     $this->error = TRUE;
     }
   }
